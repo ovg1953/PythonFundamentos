@@ -1,27 +1,31 @@
 # Game Ping-Pong
+# importando as bibliotecas
 
-from tkinter import *
-import random
-import time
+from tkinter import * #interface gráfica
+import random #geração de numero randomicos
+import time #manipuação de tempo
 
-level = int(input("Qual nível você gostaria de jogar? 1/2/3/4/5 \n"))
-length = 500/level
+#solicita qual o nível de jogo o usuário pretende - não tem rotina de validação de valor
+level = int(input("Qual nível você gostaria de jogar? 1/2/3/4/5 \n")) # convete para inteiro
+length = 500/level # tamanho depende de level
 
 
-root = Tk()
-root.title("Ping Pong")
-root.resizable(0,0)
-root.wm_attributes("-topmost", -1)
+root = Tk() # define origem da janela
+root.title("Ping Pong") # define título da janela
+root.resizable(0,0) # redimencionamento padrão
+root.wm_attributes("-topmost", -1) # Who knows?
 
+#cria a janela
 canvas = Canvas(root, width=800, height=600, bd=0,highlightthickness=0)
 canvas.pack()
 
 root.update()
 
-# Variável
+# inicializa variaveis de controle globais
 count = 0
 lost = False
 
+# criação do objeto Bola
 class Bola:
     def __init__(self, canvas, Barra, color):
         self.canvas = canvas
@@ -74,7 +78,7 @@ class Bola:
             global lost
             lost = True
 
-
+# cria o objeto barra de rebatimento
 class Barra:
     def __init__(self, canvas, color):
         self.canvas = canvas
@@ -112,7 +116,7 @@ class Barra:
         if self.pos[2] <= self.canvas_width:
             self.x = 3
 
-
+# subrotina reinicializa o jogo
 def start_game(event):
     global lost, count
     lost = False
@@ -124,14 +128,14 @@ def start_game(event):
     Barra.draw()
     Bola.draw()
 
-
+#subrotina de contagem placar
 def score():
     canvas.itemconfig(score_now, text="Pontos: " + str(count))
-
+#subrotina perdeu playboy
 def game_over():
     canvas.itemconfig(game, text="Game over!")
 
-
+#inicializando o jogo
 Barra = Barra(canvas, "orange")
 Bola = Bola(canvas, Barra, "purple")
 
@@ -139,6 +143,7 @@ Bola = Bola(canvas, Barra, "purple")
 score_now = canvas.create_text(430, 20, text="Pontos: " + str(count), fill = "green", font=("Arial", 16))
 game = canvas.create_text(400, 300, text=" ", fill="red", font=("Arial", 40))
 
+# junta tudo e começa o jogo
 
 canvas.bind_all("<Button-1>", start_game)
 

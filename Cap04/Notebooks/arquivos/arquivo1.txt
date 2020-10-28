@@ -1,1 +1,1 @@
-Testando gravação de arquivos em Python  Acrescentando conteúdo
+﻿Python é uma linguagem poderosa!
